@@ -1,0 +1,14 @@
+.item-fade-enter {
+  transform: translateX(-200%);
+}
+.item-fade-enter-active {
+  transform: translateX(0);
+  transition: transform 250ms linear;
+}
+.item-fade-exit {
+  transform: translateX(0);
+}
+.item-fade-exit-active {
+  transform: translateX(-200%);
+  transition: transform 250ms linear;
+}

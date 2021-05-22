@@ -1,0 +1,55 @@
+body {
+  font-family: 'Itim', cursive;
+  background-color: #3f0e40;
+  color: #fff;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.app {
+  border: 10px solid rgb(82, 38, 83);
+  width: 400px;
+  box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  /* padding: 20px; */
+}
+.phone-form {
+  padding: 20px;
+}
+.title {
+  text-align: center;
+  font-family: 'Itim', cursive;
+
+  color: #fff;
+}
+.loader {
+  text-align: center;
+}
+
+.error-message {
+  color: red;
+  font-size: 25px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.fade-appear {
+  opacity: 0;
+}
+.fade-appear-active {
+  opacity: 1;
+  transition: opacity 2000ms linear;
+}
+.scale-appear {
+  transform: scale(0.1);
+}
+.scale-appear-active {
+  transform: scale(1);
+  transition: transform 500ms linear;
+}

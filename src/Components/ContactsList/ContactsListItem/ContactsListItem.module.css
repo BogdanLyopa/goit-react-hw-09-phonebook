@@ -1,0 +1,44 @@
+.button {
+  display: flex;
+  align-items: center;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #f57067;
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.button:hover,
+.button:focus {
+  background-color: #910f06;
+  color: antiquewhite;
+}
+
+.item {
+  align-items: center;
+  border-top: 1px solid rebeccapurple;
+  padding: 5px;
+  display: flex;
+  justify-content: space-between;
+  color: rgb(188, 171, 188);
+}
+
+.item:hover {
+  background-color: #350d36;
+  color: #fff;
+}
+
+.name {
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.item-fade-enter {
+  transform: translateX(-100%);
+}
+.item-fade-enter-active {
+  transform: translateX(0);
+  transition: transform 500ms linear;
+}
