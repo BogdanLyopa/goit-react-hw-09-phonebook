@@ -1,21 +1,19 @@
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { authSelectors } from '../../redux/auth';
 import { StyledNavLink } from './AuthNav';
 
-const Navigation = ({ isAuthenticated }) => (
-  <div>
-    <StyledNavLink activeClassName="navLink__active" exact to="/">
-      Main
-    </StyledNavLink>
-    {isAuthenticated && (
-      <StyledNavLink activeClassName="navLink__active" to="/contacts">
-        Contacts
+export default function Navigation() {
+  const isAuthenticated = useSelector(authSelectors.getIsAuthenticated);
+  return (
+    <div>
+      <StyledNavLink activeClassName="navLink__active" exact to="/">
+        Main
       </StyledNavLink>
-    )}
-  </div>
-);
-const mapStateToProps = state => ({
-  isAuthenticated: authSelectors.getIsAuthenticated(state),
-});
-
-export default connect(mapStateToProps)(Navigation);
+      {isAuthenticated && (
+        <StyledNavLink activeClassName="navLink__active" to="/contacts">
+          Contacts
+        </StyledNavLink>
+      )}
+    </div>
+  );
+}

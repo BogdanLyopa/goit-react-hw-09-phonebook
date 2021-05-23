@@ -1,25 +1,21 @@
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { authSelectors, authOperations } from '../../redux/auth';
 import styled from 'styled-components';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
-const UserMenu = ({ name, onLogout }) => (
-  <UserDiv>
-    <Span>Welcome,{name}!</Span>
-    <LogoutButton type="button" onClick={onLogout}>
-      <ExitToAppIcon /> Logout
-    </LogoutButton>
-  </UserDiv>
-);
-const mapStateToProps = state => ({
-  name: authSelectors.getUsername(state),
-});
-
-const mapDispatchToProps = {
-  onLogout: authOperations.logOut,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(UserMenu);
+export default function UserMenu() {
+  const name = useSelector(authSelectors.getUsername);
+  const dispatch = useDispatch();
+  const onLogout = () => dispatch(authOperations.logOut());
+  return (
+    <UserDiv>
+      <Span>Welcome,{name}!</Span>
+      <LogoutButton type="button" onClick={onLogout}>
+        <ExitToAppIcon /> Logout
+      </LogoutButton>
+    </UserDiv>
+  );
+}
 
 const Span = styled.span`
   margin-right: 15px;

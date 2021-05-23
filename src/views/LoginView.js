@@ -1,74 +1,77 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { authOperations } from '../redux/auth';
 import styled from 'styled-components';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 import { authSelectors } from '../redux/auth';
 
-class LoginView extends Component {
-  state = {
-    email: '',
-    password: '',
+export default function LoginView() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const error = useSelector(authSelectors.getError);
+
+  const dispatch = useDispatch();
+
+  const handleChange = event => {
+    const { name, value } = event.target;
+    switch (name) {
+      case 'email':
+        setEmail(value);
+        break;
+
+      case 'password':
+        setPassword(value);
+        break;
+
+      default:
+        break;
+    }
   };
 
-  handleChange = ({ target: { name, value } }) => {
-    this.setState({ [name]: value });
-  };
-
-  handleSubmit = event => {
+  const handleSubmit = event => {
     event.preventDefault();
-    this.props.onLogin(this.state);
-    this.setState({ name: '', email: '', password: '' });
+    dispatch(authOperations.logIn({ email, password }));
+    setEmail('');
+    setPassword('');
   };
 
-  render() {
-    const { email, password } = this.state;
-    return (
-      <LoginForm onSubmit={this.handleSubmit} autoComplete="off">
-        <h2>Log in</h2>
-        <Label>
-          <Span>
-            <MailOutlineIcon />
-            Email
-          </Span>
+  return (
+    <LoginForm onSubmit={handleSubmit} autoComplete="off">
+      <h2>Log in</h2>
+      <Label>
+        <Span>
+          <MailOutlineIcon />
+          Email
+        </Span>
 
-          <Input
-            placeholder="Enter email"
-            type="email"
-            name="email"
-            value={email}
-            onChange={this.handleChange}
-          />
-        </Label>
-        <Label>
-          <Span>
-            <LockOpenIcon />
-            Password
-          </Span>
-          <Input
-            placeholder="Enter password"
-            type="password"
-            name="password"
-            value={password}
-            onChange={this.handleChange}
-          />
-        </Label>
-        <LoginButton type="submit">Log in</LoginButton>
-        {this.props.error && <p>Invalid login or password</p>}
-      </LoginForm>
-    );
-  }
+        <Input
+          placeholder="Enter email"
+          type="email"
+          name="email"
+          value={email}
+          onChange={handleChange}
+        />
+      </Label>
+      <Label>
+        <Span>
+          <LockOpenIcon />
+          Password
+        </Span>
+        <Input
+          placeholder="Enter password"
+          type="password"
+          name="password"
+          value={password}
+          onChange={handleChange}
+        />
+      </Label>
+      <LoginButton type="submit">Log in</LoginButton>
+      {error && <p>Invalid login or password</p>}
+    </LoginForm>
+  );
 }
-const mapStateToProps = state => ({
-  error: authSelectors.getError(state),
-});
-
-const mapDispatchToProps = {
-  onLogin: authOperations.logIn,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(LoginView);
 
 export const LoginForm = styled.form`
   text-align: center;
